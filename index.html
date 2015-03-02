@@ -2,7 +2,12 @@
 <html>
 <head>
 	<title>Tick Tock</title>
-	<script src="min.js" type="text/javascript"></script>
+	<script src="jquery.min.js" type="text/javascript"></script>
+	<script src="date.js" type="text/javascript"></script>
+	<script src="dates.js" type="text/javascript"></script>
+	<meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0;"/>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
 	<style type="text/css" media="screen"><!--
 		body {
 			color: #fff;
@@ -36,68 +41,65 @@
 		#counter div {
 			width:25px;
 			height:25px;
-			margin:1px;
+			margin:0px 2px;
 			background-color:#292a24;
 			border:1px solid #404040;
 			display:inline-block;
-		}
-
-		#counter #bit32 {
-			
 		}
 
 		#counter div.on {
 			background-color:#a6e22e;
 		}
 
+		#counter div.off {
+			background-color:#272822;
+		}
+
+		#info {
+			font-family:tahoma,arial,sans-serif;
+			font-size:18px;
+			color:#8F908A;
+			display:none;
+			padding:10px;
+		}
+
+		#info .number {
+			font-size:11px;
+			color:#474747;
+			text-decoration:none;
+			display:block;
+		}
+
+		#message {
+			font-family:tahoma,arial,sans-serif;
+			font-size:12px;
+			color:#676767;
+			position:absolute;
+			bottom:5px;
+			right:5px;
+		}
+
+		/*#counter.milestones div.on.year,#counter.milestones div.on.month,#counter.milestones div.on.day,#counter.milestones div.on.hour,#counter.milestones div.on.minute,#counter.milestones div.on.second {
+			background-color:rgb(249,38,114);
+		}*/
 	--></style>
 </head>
 <body>
 	<div id="horizon">
 		<div id="counter">
-			<div id="bit1"></div>
-			<div id="bit2"></div>
-			<div id="bit3"></div>
-			<div id="bit4"></div>
-			<div id="bit5"></div>
-			<div id="bit6"></div>
-			<div id="bit7"></div>
-			<div id="bit22"></div>
-			<div id="bit23"></div>
-			<div id="bit24"></div>
-			<div id="bit25"></div>
-			<div id="bit26"></div>
-			<div id="bit27"></div>
-			<div id="bit8"></div>
-			<div id="bit21"></div>
-			<div id="bit36"></div>
-			<div id="bit37"></div>
-			<div id="bit38"></div>
-			<div id="bit39"></div>
-			<div id="bit28"></div>
-			<div id="bit9"></div>
-			<div id="bit20"></div>
-			<div id="bit35"></div>
-			<div id="bit42"></div>
-			<div id="bit41"></div>
-			<div id="bit40"></div>
-			<div id="bit29"></div>
-			<div id="bit10"></div>
-			<div id="bit19"></div>
-			<div id="bit34"></div>
-			<div id="bit33"></div>
-			<div id="bit32"></div>
-			<div id="bit31"></div>
-			<div id="bit30"></div>
-			<div id="bit11"></div>
-			<div id="bit18"></div>
-			<div id="bit17"></div>
-			<div id="bit16"></div>
-			<div id="bit15"></div>
-			<div id="bit14"></div>
-			<div id="bit13"></div>
-			<div id="bit12"></div>
+			<div id="bit1"></div><div id="bit2"></div><div id="bit3"></div><div id="bit4"></div><div id="bit5"></div><div id="bit6"></div><div id="bit7"></div><div id="bit22"></div><div id="bit23"></div><div id="bit24"></div><div id="bit25"></div><div id="bit26"></div><div id="bit27" class="minute"></div><div id="bit8" class="year"></div><div id="bit21" class="hour"></div><div id="bit36"></div><div id="bit37"></div><div id="bit38"></div><div id="bit39"></div><div id="bit28"></div><div id="bit9"></div><div id="bit20"></div><div id="bit35"></div><div id="bit42"></div><div id="bit41"></div><div id="bit40"></div><div id="bit29"></div><div id="bit10"></div><div id="bit19"></div><div id="bit34"></div><div id="bit33" class="second"></div><div id="bit32"></div><div id="bit31"></div><div id="bit30"></div><div id="bit11"></div><div id="bit18" class="day"></div><div id="bit17"></div><div id="bit16"></div><div id="bit15"></div><div id="bit14"></div><div id="bit13"></div><div id="bit12" class="month"></div>
 		</div>
 	</div>
+	<div id="info">
+		<div id="date"></div>
+		<a class="number" id="seconds" href="#0">0</a>
+		<a class="number" id="minutes" href="#0">0</a>
+		<a class="number" id="hours" href="#0">0</a>
+		<a class="number" id="days" href="#0">0</a>
+		<a class="number" id="weeks" href="#0">0</a>
+		<a class="number" id="months" href="#0">0</a>
+		<a class="number" id="years" href="#0">0</a>
+	</div>
+	<div id="message"></div>
 </body>
 </html>
