@@ -37,7 +37,7 @@ function display(num) {
 	}
 }
 
-function turn(i,turnon) {
+function turn(i, turnon) {
 	turnon = typeof(turnon) != 'undefined' ? (turnon == true) : (!$('#bit'+i).hasClass('on'));;
 
 	$('#bit'+i).stop();
@@ -57,7 +57,7 @@ function initialise(v) {
 	if (v >= 42) {
 		$('#counter').removeClass('milestones')
 		set_display();
-		interval = setInterval(set_display,1001);
+		interval = setInterval(set_display, 1024);
 	} else {
 		display(Math.pow(2,v));
 		timeout = setTimeout(function() {initialise(v+1)},50);
@@ -81,9 +81,7 @@ $(document).bind('ready',function() {
 		if (mousedown_on_bit == false) {
 			mousedown_on_bit = ($(this).hasClass('on') ? 'off' : 'on' );
 		}
-		$('#message').text('Press here to restart the count.')
 
-		clearInterval(interval);
 		$('#info').fadeIn();
 
 		if (mousedown_on_bit != false) {
