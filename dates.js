@@ -20,18 +20,18 @@ function set_display() {
 }
 
 function display(num) {
-	var date = new Date(num+then + (new Date().getTimezoneOffset()) * 60000);
+	var date = new Date((num * 1000) + then + (new Date().getTimezoneOffset()) * 60000);
 	$('#date').text(date.toString('d MMM yyyy HH:mm:ss') + ' GMT');
 	$('#info .number').attr('href','#'+(num+then));
-	$('#years').text(Math.round(num / (1000*60*60*24*365.25),1));
-	$('#months').text(Math.round(num / (1000*60*60*24*30),1));
-	$('#weeks').text(Math.floor(num / (1000*60*60*24*7)));
-	$('#days').text(Math.floor(num / (1000*60*60*24)));
-	$('#hours').text(Math.floor(num / (1000*60*60)));
-	$('#minutes').text(Math.floor(num / (1000*60)));
-	$('#seconds').text(Math.floor(num/ 1000));
+	$('#years'  ).text(Math.round(num / (60*60*24*365.25),1));
+	$('#months' ).text(Math.round(num / (60*60*24*30),1));
+	$('#weeks'  ).text(Math.floor(num / (60*60*24*7)));
+	$('#days'   ).text(Math.floor(num / (60*60*24)));
+	$('#hours'  ).text(Math.floor(num / (60*60)));
+	$('#minutes').text(Math.floor(num / (60)));
+	$('#seconds').text(Math.floor(num));
 
-	for(i=42;i>0;i--) {
+	for(i=34;i>4;i--) {
 		turn(i,((num & 1) == 1));
 		num = Math.floor(num / 2);
 	}
@@ -94,9 +94,10 @@ $(document).bind('ready',function() {
 		
 
 		var num = 0;
-		for(i=42;i>0;i--) {
+		for(i=30;i>0;i--) {
 			if ($('#bit'+i).hasClass('on')) {
-				num += Math.pow(2,42 - i);
+				console.log(num, i, Math.pow(2, 34 - i))
+				num += Math.pow(2, 34 - i);
 			}
 		}
 		
@@ -104,5 +105,5 @@ $(document).bind('ready',function() {
 		return false;
 	})
 
-	$('#number').bind('click',function() {clearInterval(interval); })
+	$('.number').bind('click',function() {clearInterval(interval); })
 });
