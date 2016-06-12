@@ -16,23 +16,24 @@ function set_display() {
 	}
 	
 	var num = date.getTime() - then;
-	display(num)
+	display(num / 1000);
 }
 
 function display(num) {
 	var date = new Date((num * 1000) + then + (new Date().getTimezoneOffset()) * 60000);
 	$('#date').text(date.toString('d MMM yyyy HH:mm:ss') + ' GMT');
 	$('#info .number').attr('href','#'+(num+then));
-	$('#years'  ).text(Math.round(num / (60*60*24*365.25),1));
-	$('#months' ).text(Math.round(num / (60*60*24*30),1));
-	$('#weeks'  ).text(Math.floor(num / (60*60*24*7)));
-	$('#days'   ).text(Math.floor(num / (60*60*24)));
-	$('#hours'  ).text(Math.floor(num / (60*60)));
-	$('#minutes').text(Math.floor(num / (60)));
-	$('#seconds').text(Math.floor(num));
+	$('#years').text(Math.round(num / (60*60*24*365.25),1));
+  $('#months').text(Math.round(num / (60*60*24*30),1));
+  $('#weeks').text(Math.floor(num / (60*60*24*7)));
+  $('#days').text(Math.floor(num / (60*60*24)));
+  $('#hours').text(Math.floor(num / (60*60)));
+  $('#minutes').text(Math.floor(num / 60));
+  $('#seconds').text(Math.floor(num));
 
-	for(i=34;i>4;i--) {
-		turn(i,((num & 1) == 1));
+  num = num / 16;
+	for(i=1;i<=30;i++) {
+		turn(31 - i,((num & 1) == 1));
 		num = Math.floor(num / 2);
 	}
 }
@@ -54,7 +55,7 @@ function turn(i, turnon) {
 function initialise(v) {
 	clearInterval(interval);
 	$('#counter').addClass('milestones')
-	if (v >= 42) {
+	if (v >= 34) {
 		$('#counter').removeClass('milestones')
 		set_display();
 		interval = setInterval(set_display, 1024);
@@ -71,13 +72,14 @@ var mousedown_on_bit = false;
 $(document).bind('ready',function() {
 	initialise(0);
 
-	$('#message').bind('click',function(){ $('#info').fadeOut(); $('#message').text(''); window.location.hash = ''; initialise(0); })
+	$('#message').bind('click',function(){ $('#info').fadeOut(); $('#message').text(''); window.location.hash = ''; initialise(16); })
 
 	$(document).bind('mouseup',function(e) { mousedown_on_bit = false; })
 	$(document).bind('mousedown',function() { if (mousedown_on_bit == false) {$('#info').fadeToggle(); $('#counter').toggleClass('milestones') }});
 	$('#counter div').bind('mouseover',function() { if (mousedown_on_bit != false) { $(this).trigger('mousedown') } })
 
 	$('#counter div').bind('mousedown',function() {
+		clearInterval(interval);
 		if (mousedown_on_bit == false) {
 			mousedown_on_bit = ($(this).hasClass('on') ? 'off' : 'on' );
 		}
@@ -96,7 +98,6 @@ $(document).bind('ready',function() {
 		var num = 0;
 		for(i=30;i>0;i--) {
 			if ($('#bit'+i).hasClass('on')) {
-				console.log(num, i, Math.pow(2, 34 - i))
 				num += Math.pow(2, 34 - i);
 			}
 		}
